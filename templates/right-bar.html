@@ -1,0 +1,15 @@
+<style>
+  .list-group-item-white{
+    background-color: #4f4f4f;
+    color:cornsilk;
+  }
+</style>
+<ul class="list-group">
+    <li class="list-group-item list-group-item-white">Latest Questions</li>
+    {% for i in latest %}
+    <li class="list-group-item list-group-item">
+      {{i.title}}
+    </li>
+    {% endfor %}
+
+  </ul>

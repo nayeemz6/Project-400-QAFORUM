@@ -1,0 +1,89 @@
+{% extends "blog_base.html" %}
+{% load static %}
+{% block content %}
+<style>
+  .btn.btn-success{
+   background-color : #ffeb00 !important;
+   color: black;
+  } 
+  .text-danger{
+    color: crimson !important;
+  }
+  .badge.bg-info{
+   background-color : #ffeb00 !important;
+   color: black; 
+  }
+</style>
+<!--main base-->
+<div class="">
+<div class="row m-3">
+  <div class="col-md-3">
+    {% include 'blog/cat.html' with category_count=category_count %}
+  </div>
+
+  <div class="col-md-6 ">
+
+    {% for post in queryset %}
+    <div class="card mb-4 shadow">
+        <div class="card-body">
+            <h4 class="card-title"><a href="{{ post.get_absolute_url }}">{{post.title}}</a></h4>
+            <p class="card-text">{{ post.overview }}}</p>
+            <small><span class="badge bg-light text-dark"><i class="far fa-clock"></i> {{ post.timestamp|date:'d/m/Y'}}</span></small>
+            <p>
+              <img  src="{{post.user.profile_pic.url}}"class="rounded-circle" width="25" alt="avater"
+              loading="lazy" />
+                <a href="/profile/{{ user.username }}" class="mr-2"><span class="badge bg-info">{{ post.user.first_name }}</span></a>
+                 <span><i class="far fa-eye"></i> {{ post.view_count }}</span>
+                <a href="/detail/{{quest.id}}" class="mr-2"><span><i class="far fa-comment"></i> {{ post.comment_count }}</span></a>
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="col-md-3 ">
+    {% include 'blog/sidebar.html' with most_recent=most_recent %}
+  </div>
+</div>
+
+
+      <!-- Pagination -->
+      <nav aria-label="Page navigation example">
+        <ul class="pagination pagination-template d-flex justify-content-center">
+          {% if queryset.has_previous %}
+          <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.previous_page_number }}" class="page-link">
+              <i class="fa fa-angle-left"></i></a></li>
+          {% endif %}
+          <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.number }}" class="page-link active">{{ queryset.number }}</a></li>
+          {% if queryset.has_next %}
+          <li class="page-item"><a href="?{{ page_request_var }}={{ queryset.next_page_number }}" class="page-link"> <i
+                class="fa fa-angle-right"></i></a></li>
+          {% endif %}
+        </ul>
+      </nav>
+
+      {% if is_paginated %}
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination pagination-template d-flex justify-content-center">
+          {% if page_obj.has_previous %}
+          <li class="page-item"><a href="?{{ page_request_var }}={{ page_obj.previous_page_number }}" class="page-link">
+              <i class="fa fa-angle-left"></i></a></li>
+          {% endif %}
+          <li class="page-item"><a href="?{{ page_request_var }}={{ page_obj.number }}" class="page-link active">
+            {{ page_obj.number }}</a></li>
+          {% if page_obj.has_next %}
+          <li class="page-item"><a href="?{{ page_request_var }}={{ page_obj.next_page_number }}" class="page-link"> <i
+                class="fa fa-angle-right"></i></a></li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
+</div>
+{% endblock content %}
+
+
+
+
+
+

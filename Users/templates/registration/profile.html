@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% block title %}{% load crispy_forms_tags %}{% load static %}
+Profile
+{% endblock title %} {% block content %}
+<style>
+    .card{
+        margin-left:30%;
+        margin-right: 30%;
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+    .btn-warning{
+        background-color: #ffeb00 !important;
+        color: black;
+    }
+    @media screen and (max-width: 930px) {
+  .card {
+
+    margin: 2%;
+    margin-top: 5%;
+  }
+}
+</style>
+<div class="card" style="max-width: 540px">
+
+    <div class="row g-0">
+        <div class="col-md-4 justify-content-between">
+            <img src="{{profile.profile_pic.url}}" alt="avatar" style="object-fit: cover"
+                class="img-fluid" />
+                
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <span class="card-title text-center mt-2"><strong>User: </strong> {{ profile.user.username }}</span>
+                <hr/>
+                <span class="card-title"><strong>Name: </strong>  {% if profile.first_name %}{{ profile.first_name }}{% endif %}
+                    {% if profile.last_name %}{{ profile.last_name }} {% endif %} </span>
+                <p class="card-text"><b>About:</b>
+                    {% if profile.about_text %}
+                    {{ profile.about_text|safe }}
+                    {% else %}
+                <p>User has not entered anything here</p>
+                {% endif %}
+                </p>
+                <p class="card-text">
+                    <small>Email: {% if profile.email %}{{ profile.email }}{% endif %}</small>
+                </p>
+                <!-- Facebook -->
+                {% if profile.facebook %}
+                <a class="btn btn-primary m-1" style="background-color: #3b5998" href="{{profile.facebook}}" role="button"><i
+                        class="fab fa-facebook-f"></i></a>
+                 {% endif %}
+                <!-- Twitter -->
+                {% if profile.twitter %}
+                <a class="btn btn-primary m-1" style="background-color: #55acee" href="{{profile.twitter}}" role="button"><i
+                        class="fab fa-twitter"></i></a>
+                {% endif %}
+                <!-- Google -->
+                {% if profile.website %}
+                <a class="btn btn-primary m-1" style="background-color: #acdd39" href="{{profile.website}}" role="button">
+                    <i class="fas fa-user-circle"></i>
+                {% endif %}
+
+                <!-- Github -->
+                {% if profile.github %}
+                <a class="btn btn-primary m-1" style="background-color: #333333" href="{{profile.github}}" role="button"><i
+                        class="fab fa-github"></i></a>
+
+                {% endif %}
+            </div>
+
+        </div>
+               <div class=" emphasis">
+               <br>
+               {% if profile.user == user %}
+               <a type="button" class="btn btn-warning justify-content-end" href="/edit_profile/"><span
+                    class="fa fa-gear"></span> Edit</a>
+                   {% endif %}
+               </div>
+    </div>
+
+
+</div>
+{% endblock content %}

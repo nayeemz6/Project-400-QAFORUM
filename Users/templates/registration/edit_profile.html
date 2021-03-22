@@ -1,0 +1,88 @@
+{% extends 'base.html' %} {% block title %}{% load crispy_forms_tags %}
+Profile
+{% endblock title %} {% block content %}
+<style>
+  .account {
+  padding: 50px;
+}
+.login {
+  background-color: #dfdfdf;
+  margin-top: 90px;
+  width: 50%;
+  margin: 1%;
+  left: 25%;
+}
+.btn-yellow{
+  background-color:  #ffeb00 !important;
+}
+@media screen and (max-width: 930px) {
+  .login {
+    left: 1%;
+    width: 95%;
+    margin: 2%;
+  }
+}
+</style>
+<section class="account">
+  <div class="animated fadeInDown login card bg-light">
+    <form
+      class="text-center border border-light p-5"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% load static %} {% csrf_token %}
+      <img
+        src="{{form.profile_pic.url}}"
+        alt=""
+        style="object-fit: cover"
+        class="rounded-circle img-fluid"
+      />
+      <div class="row mt-4">
+        <div class="col">
+          <!-- First name -->
+         
+          <div class="text-left">{{form.first_name|as_crispy_field}}</div>
+
+        </div>
+        <div class="col">
+       
+          <div class="text-left">{{form.last_name|as_crispy_field}}</div>
+        </div>
+      </div>
+
+      <!-- Email  -->
+      
+      <div class="text-left">{{form.email|as_crispy_field}}</div>
+      <!-- about -->
+      <div class="text-left">{{form.about_text|as_crispy_field}}</div>
+      <!--website-->
+      <div class="text-left">{{form.website|as_crispy_field}}</div>
+      <!--facebook-->
+      <div class="text-left">{{form.facebook|as_crispy_field}}</div>
+      <!--twitter-->
+      <div class="text-left">{{form.twitter|as_crispy_field}}</div>
+     <!--github-->
+      <div class="text-left">{{form.github|as_crispy_field}}</div>
+
+      <div class="mt-2">
+
+        <div class="text-center text-dm">
+          {{form.profile_pic|as_crispy_field}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-offset-3 mt-2">
+            <button type="submit" class="btn btn-yellow">Save changes</button>
+           <a class="btn btn-yellow mt-3 justify-content-center" href="{% url 'reset_password' %}">Reset password?</a>
+        </div>
+       
+    </div> 
+    </form>
+  </div>
+</section>
+<script>
+  var form_fields = document.getElementsByTagName("input");
+  form_fields[3].readOnly = true;
+</script>
+{% endblock content %}

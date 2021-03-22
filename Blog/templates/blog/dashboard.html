@@ -1,0 +1,87 @@
+{% extends "blog_base.html" %}
+{% load static %}
+{% block content %}
+<style>
+  .btn.btn-success{
+   background-color : #ffeb00 !important;
+   color: black;
+  } 
+  .text-danger{
+    color: crimson !important;
+  }
+  .badge.bg-info{
+   background-color : #ffeb00 !important;
+   color: black; 
+  }
+  .card-tittle{
+      background-color:  #4f4f4f!important;
+      color: cornsilk;
+
+  }
+</style>
+<!--main base-->
+<div class="">
+    <h2 class="card-tittle text-center">User Dashboard</h2>
+<div class="row m-3">
+  <div class="col-md-3">
+
+  </div>
+
+  <div class="col-md-6 ">
+    <h3 class="tittle text-center m-3">Blog posts</h3>
+    {% for i in post %}
+    <div class="card mb-4 shadow">
+        <div class="card-body">
+            <img  src="{{i.user.profile_pic.url}}"class="rounded-circle" width="25" alt="avater"
+            loading="lazy" />
+              <a href="/profile/{{ i.user.username}}" class="mr-2"><span class="badge bg-info">{{ i.user.first_name }}</span></a>
+            <h4 class="card-title"><a href="{{ i.get_absolute_url }}">{{i.title}}</a></h4>
+            <div>
+                <small><span class="badge bg-light text-dark"><i class="far fa-clock"></i> {{ i.timestamp|date:'d/m/Y'}}</span></small>
+                <p>
+
+                     <span><i class="far fa-eye"></i> Views {{ i.view_count }}</span>
+                    <a href="{{ i.get_absolute_url }}" class="mr-2"><span><i class="far fa-comment"></i> Comments {{ i.comment_count }}</span></a>
+                </p>
+                <a class="btn-sm btn-success" href="{% url 'post-update' pk=i.pk %}">Update</a>
+                <a class="btn-sm btn-danger" href="{% url 'post-delete' pk=i.pk %}">Delete</a>
+              </div>
+        </div>
+    </div>
+    {% endfor %}
+    <h3 class="tittle text-center m-3">Questions</h3>
+    {% for q in quest %}
+    <div class="card mb-4 shadow">
+        <div class="card-body">
+            <img  src="{{q.user.profile_pic.url}}"class="rounded-circle" width="25" alt="avater"
+            loading="lazy" />
+              <a href="/profile/{{ q.user.username}}" class="mr-2"><span class="badge bg-info">{{ q.user.first_name }}</span></a>
+            <h4 class="card-title"><a href="{{ q.get_absolute_url }}">{{q.title}}</a></h4>
+            <div>
+                <small><span class="badge bg-light text-dark"><i class="far fa-clock"></i> {{ q.add_time|date:'d/m/Y'}}</span></small>
+                <p>
+
+                  <a href="/detail/{{quest.id}}" class="mr-2"><span class="">{{q.answer_set.count}} Answers</span></a>
+                    <a href="/detail/{{quest.id}}" class="mr-2"><span><i class="far fa-comment"></i> Comments {{ q.total_comments}}</span></a>
+                </p>
+                <a class="btn-sm btn-success" href="{% url 'quest-update' pk=q.pk %}">Update</a>
+                <a class="btn-sm btn-danger" href="{% url 'quest-delete' pk=q.pk %}">Delete</a>
+              </div>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="col-md-3 ">
+   
+  </div>
+</div>
+
+</div>
+{% endblock content %}
+
+
+
+
+
+

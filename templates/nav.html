@@ -1,0 +1,137 @@
+  <!-- Navbar-->{% load static %}
+  <style>
+    .bg-color{
+     background-color : #ffeb00 !important;
+    } 
+    .text-danger{
+      color: crimson !important;
+    }
+  </style>
+  <nav class="navbar navbar-expand-lg navbar-light bg-color">
+    <div class="container-fluid justify-content-between">
+      <!-- Left elements -->
+      <div class="d-flex">
+        <!-- Brand -->
+        <a style="font-family: 'Carter One', cursive;" class="navbar-brand me-2 mb-1 d-flex align-items-center" href="/">
+         <h3>QA<span class="text-danger">FORUM</span></h3></a>
+        <!-- Container wrapper -->
+        
+        <div class="container-fluid d-lg-none">
+          <!-- Toggle button -->
+          <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+            data-mdb-target="#navbarLeftAlignExample" aria-controls="navbarLeftAlignExample" aria-expanded="true"
+            aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Collapsible wrapper -->
+          <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <!-- Navbar dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                  data-mdb-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <!-- Dropdown menu -->
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
+            <!-- Left links -->
+          </div>
+          <!-- Collapsible wrapper -->
+        </div>
+        <!-- Container wrapper -->
+
+
+
+      </div>
+
+      <!-- Left elements -->
+
+      <!-- Center elements -->
+      <ul class="navbar-nav flex-row d-none d-md-flex">
+        <li class="nav-item me-3 me-lg-1 active">
+          <a class="nav-link" href="/">
+            <span><i class="fas fa-home fa-lg"></i>Home</span>
+
+          </a>
+        </li>
+
+        <li class="nav-item me-3 me-lg-1">
+          <a class="nav-link" href="{% url 'blog' %}">
+            <span>Blog</span>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown"
+            aria-expanded="false">
+            Category
+          </a>
+          <!-- Dropdown menu -->
+         
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+             {% for tag in tags %}
+            <li><a class="dropdown-item" href="/tag/{{tag.name|slugify}}">{{tag.name}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link" href="/ask-question"><span><i class="far fa-edit"></i>Ask</span></a> 
+        </li>
+      </ul>
+      <!-- Center elements -->
+
+      <!-- Right elements -->
+      <ul class="navbar-nav flex-row">      
+          {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink"
+            role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+            <img  src="{{request.user.qauser.profile_pic.url}}" 
+                  class="rounded-circle" height="22" alt="avater"
+                  loading="lazy" />
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+         
+           <li>
+             <a class="dropdown-item"  href="/profile/{{ user }}">My profile</a>
+           
+            </li>
+            <li>
+              <a class="dropdown-item"  href="{% url 'dashboard' %}">Dashboard</a>
+            
+             </li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+          </ul>
+        </li>
+        {% else %}
+    
+        <a class="nav-link btn btn-outline-dark" href="{% url 'login' %}"><span>Login</span> </a>
+         {% endif %}
+      </ul>
+      <!-- Right elements -->
+    </div>
+  </nav>
+  <!-- Navbar -->
+

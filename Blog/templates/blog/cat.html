@@ -1,0 +1,19 @@
+    <!-- Widget [Categories Widget]-->
+    <style>
+      .list-group-item-white{
+        background-color: #4f4f4f;
+        color:cornsilk;
+      }
+      .bg-danger{
+        background-color: #4f4f4f!important;
+    }
+    </style>
+    <div class="list-group">
+        <li class="list-group-item list-group-item-white" aria-current="true">
+          Category
+        </li>
+        {% for cat in category_count %}
+        <a href="" class="list-group-item list-group-item-action">{{ cat.categories__title }}
+          <span class="badge bg-danger">{{ cat.categories__title__count }}</span></a>
+        {% endfor %}
+      </div>

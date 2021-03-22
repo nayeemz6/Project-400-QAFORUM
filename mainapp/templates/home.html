@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .btn.btn-success{
+   background-color : #ffeb00 !important;
+   color: black;
+  } 
+  .text-danger{
+    color: crimson !important;
+  }
+  .badge.bg-info{
+   background-color : #ffeb00 !important;
+   color: black; 
+  }
+  .badge.bg-black{
+   background-color : #4f4f4f !important;
+   color: whitesmoke; 
+  }
+</style>
+    <!--Search Bar-->
+
+      <div class="container ml-5 mr-5 mt-3 mb-3" >
+        <form class="d-flex input-group w-auto">
+          <input type="search" class="form-control" name="q" placeholder="Search here" aria-label="Search" />
+          <button class="btn btn-outline-dark" type="button" id="button-addon2">Search</button>
+        </form>
+      </div>
+
+    <!--Search-->
+    
+  <!--main base-->
+  <div class="row m-3">
+    <div class="col-md-3">
+    {% include "tags.html" %}
+    </div>
+
+    <div class="col-md-6">
+
+      {% for quest in quests %}
+      <div class="card mb-4 shadow">
+          <div class="card-body">
+              <h4 class="card-title"><a href="/detail/{{quest.id}}">{{quest.title}}</a></h4>
+              <p class="card-text">{{quest.detail}}</p>
+              <small><span class="badge bg-light text-dark"><i class="far fa-clock"></i> {{quest.add_time}}</span></small>
+              <p>
+                <img  src="{{quest.user.profile_pic.url}}"class="rounded-circle" width="25" alt="avater"
+                loading="lazy" />
+                  <a href="/profile/{{ quest.author_name }}" class="mr-2"><span class="badge bg-info">{{quest.author_name}}</span></a>
+                  <a href="/detail/{{quest.id}}" class="mr-2"><span class="badge bg-black">{{quest.answer_set.count}} Answers</span></a>
+                  <a href="/detail/{{quest.id}}" class="mr-2"><span><i class="far fa-comment"></i> {{quest.total_comments}}</span></a>
+              </p>
+          </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="col-md-3">
+   {% include "right-bar.html" %}
+    </div>
+  </div>
+  {% include 'pagination.html' %}
+  <!--main base-->
+  {% endblock content %}

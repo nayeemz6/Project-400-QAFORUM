@@ -1,0 +1,26 @@
+{% extends 'blog_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+    .btn-primary{
+        background-color: #ffeb00 !important;
+        color: black;
+    }
+</style>
+
+<div class="col-4 offset-4 mb-5 mt-5">
+<h3>{{ title }} an article</h3>
+{{ form.media }}
+<form method="POST" action="." enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-primary mt-3" type="submit">Submit</button>
+</form>
+
+</div>
+<script src='{% static "js/highlight.pack.js" %}'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.7.0/tinymce.min.js" integrity="sha512-XaygRY58e7fVVWydN6jQsLpLMyf7qb4cKZjIi93WbKjT6+kG/x4H5Q73Tff69trL9K0YDPIswzWe6hkcyuOHlw==" crossorigin="anonymous"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+{% endblock content %}
